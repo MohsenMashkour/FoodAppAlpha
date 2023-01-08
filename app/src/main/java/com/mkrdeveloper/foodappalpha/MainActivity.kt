@@ -1,0 +1,152 @@
+package com.mkrdeveloper.foodappalpha
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.mkrdeveloper.foodappalpha.adapters.recAdapter
+import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
+import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
+import com.mkrdeveloper.foodappalpha.models.Recipes
+import kotlinx.coroutines.*
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+
+const val BASE_URL = "https://api.spoonacular.com/"
+
+class MainActivity : AppCompatActivity() {
+
+    private val TAG = "my tag"
+
+    private lateinit var recView: RecyclerView
+    private lateinit var itemArrayList: ArrayList<Recipes>
+    private lateinit var listener: RandomRecipeResponseListener
+
+    private var tags: String = "main course"
+
+    private lateinit var tvMain: TextView
+    private lateinit var tvLabel: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        recView = findViewById(R.id.recyclerView)
+        recView.layoutManager = GridLayoutManager(this, 1)
+        recView.setHasFixedSize(true)
+
+        itemArrayList = arrayListOf()
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+
+
+        tvMain = findViewById(R.id.tvMain)
+        tvLabel = findViewById(R.id.tv_label)
+
+
+        // getData()
+
+        listener = object : RandomRecipeResponseListener {
+
+            override suspend fun onFetch(response: RandomRecipeApiResponse?, message: String) {
+
+
+                if (response != null) {
+                    itemArrayList = response.recipes as ArrayList<Recipes>
+                }
+
+                Log.d(TAG, itemArrayList.toString())
+
+
+
+                withContext(Dispatchers.Main) {
+                    recView.adapter = recAdapter(itemArrayList)
+                }
+
+            }
+
+            override fun onError(msg: String) {
+                Toast.makeText(applicationContext, "error $msg", Toast.LENGTH_SHORT).show()
+            }
+        }
+        RequestManager(applicationContext, tags).getRandomRecipes(listener)
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun getData() {
+        val api = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CallRandomRecipes::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            val response: Response<RandomRecipeApiResponse> =
+                api.getRandomRecipes(applicationContext.getString(R.string.api_key), "100", tags)
+                    .awaitResponse()
+
+
+
+            Log.d(TAG, response.toString())
+            if (response.isSuccessful) {
+                val data = response.body()!!
+
+
+
+                itemArrayList = data.recipes as ArrayList<Recipes>
+
+                Log.d(TAG, itemArrayList.toString())
+
+                withContext(Dispatchers.Main) {
+                    //tvMain.text = itemArrayList.toString()
+
+                    recView.adapter = recAdapter(itemArrayList)
+
+
+                }
+
+
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.categories_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val cont = applicationContext
+        when (item.itemId) {
+            R.id.main_course -> tags = cont.getString(R.string.main_course)
+            R.id.side_dish -> tags = cont.getString(R.string.side_dish)
+            R.id.dessert -> tags = cont.getString(R.string.dessert)
+            R.id.appetizer -> tags = cont.getString(R.string.appetizer)
+            R.id.salad -> tags = cont.getString(R.string.salad)
+            R.id.bread -> tags = cont.getString(R.string.bread)
+            R.id.breakfast -> tags = cont.getString(R.string.breakfast)
+            R.id.soup -> tags = cont.getString(R.string.soup)
+            R.id.beverage -> tags = cont.getString(R.string.beverage)
+            R.id.sauce -> tags = cont.getString(R.string.sauce)
+            R.id.marinade -> tags = cont.getString(R.string.marinade)
+            R.id.finger_food -> tags = cont.getString(R.string.finger_food)
+            R.id.snack -> tags = cont.getString(R.string.snack)
+            R.id.drink -> tags = cont.getString(R.string.drink)
+
+        }
+        tvLabel.text = tags
+        RequestManager(cont, tags).getRandomRecipes(listener)
+
+
+        return super.onOptionsItemSelected(item)
+    }
+}

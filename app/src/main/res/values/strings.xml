@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FoodAppAlpha</string>
+    <string name="api_key">852092aeac6b4b34a86626c0bd071585</string>
+    <string name="main_course">main course</string>
+    <string name="side_dish">side dish</string>
+    <string name="appetizer">appetizer</string>
+    <string name="salad">salad</string>
+    <string name="bread">bread</string>
+    <string name="breakfast">breakfast</string>
+    <string name="soup">soup</string>
+    <string name="beverage">beverage</string>
+    <string name="sauce">sauce</string>
+    <string name="marinade">marinade</string>
+    <string name="dessert">dessert</string>
+    <string name="finger_food">finger_food</string>
+    <string name="snack">snack</string>
+    <string name="drink">drink</string>
+
+    <string-array name="categories">
+
+    </string-array>
+</resources>

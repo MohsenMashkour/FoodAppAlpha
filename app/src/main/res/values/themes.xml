@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FoodAppAlpha" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="actionOverflowButtonStyle">@style/menu_button</item>
+        <item name="android:itemBackground">@color/purple_500</item>
+        <item name="android:itemTextAppearance">@style/menu_color</item>
+
+    </style>
+    
+    <style name="menu_button" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/yellow</item>
+    </style>
+    <style name="menu_color" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/yellow</item>
+    </style>
+</resources>
