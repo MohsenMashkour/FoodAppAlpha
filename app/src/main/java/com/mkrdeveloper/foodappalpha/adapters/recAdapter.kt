@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.R
@@ -52,7 +53,7 @@ class recAdapter(private val recipes : ArrayList<Recipes>) : RecyclerView.Adapte
         holder.tv_like.text = "${currentItem.aggregateLikes} likes"
         holder.tv_serving.text = "${currentItem.servings} servings"
         holder.tv_resipe.text = currentItem.instructions
-        //Toast.makeText(holder.tv_name.context, currentItem.title, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(holder.tv_name.context, currentItem.image, Toast.LENGTH_SHORT).show()
        // Log.d("adapterrrr", currentItem.title)
 
 
