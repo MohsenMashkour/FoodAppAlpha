@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (searchList.isEmpty()){
-                        Toast.makeText(this@MainActivity, "No data",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "No data",Toast.LENGTH_SHORT).show()
                     }else{
 
                         recAdapter.onSearchApplied(searchList)
