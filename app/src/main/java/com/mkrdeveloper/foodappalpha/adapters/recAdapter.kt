@@ -16,7 +16,7 @@ import com.mkrdeveloper.foodappalpha.models.Recipes
 import com.squareup.picasso.Picasso
 import kotlin.coroutines.coroutineContext
 
-class recAdapter(private val recipes : ArrayList<Recipes>) : RecyclerView.Adapter<recAdapter.ViewHolder>() {
+class recAdapter(private var recipes : ArrayList<Recipes>) : RecyclerView.Adapter<recAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val img_item = itemView.findViewById<ImageView>(R.id.img_item)
@@ -31,6 +31,11 @@ class recAdapter(private val recipes : ArrayList<Recipes>) : RecyclerView.Adapte
         val tv_resipe = itemView.findViewById<TextView>(R.id.tv_recipe)
 
         val cl_item : ConstraintLayout = itemView.findViewById(R.id.cl_item)
+    }
+
+    fun onSearchApplied(recipes: ArrayList<Recipes>){
+        this.recipes = recipes
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

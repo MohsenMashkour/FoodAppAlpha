@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.adapters.recAdapter
@@ -16,6 +17,8 @@ import com.mkrdeveloper.foodappalpha.models.Recipes
 import kotlinx.coroutines.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 const val BASE_URL = "https://api.spoonacular.com/"
 
@@ -31,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tvMain: TextView
     private lateinit var tvLabel: TextView
+
+    private lateinit var searchView: SearchView
+    private lateinit var recAdapter: recAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +56,45 @@ class MainActivity : AppCompatActivity() {
         tvLabel = findViewById(R.id.tv_label)
 
 
+        recAdapter = recAdapter(itemArrayList)
+
+        searchView = findViewById(R.id.searchView)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+
+                if (query != null) {
+                    tags = query
+                }
+                RequestManager(applicationContext, tags).getRandomRecipes(listener)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+
+                val searchList = ArrayList<Recipes>()
+
+                if (newText != null){
+                    for (i in itemArrayList){
+                        if (i.title.lowercase(Locale.ROOT).contains(newText)){
+                            searchList.add(i)
+                        }
+                    }
+                    if (searchList.isEmpty()){
+                        Toast.makeText(this@MainActivity, "No data",Toast.LENGTH_LONG).show()
+                    }else{
+
+                        recAdapter.onSearchApplied(searchList)
+                    }
+                }
+                return true
+            }
+
+        })
+
+
         // getData()
 
         listener = object : RandomRecipeResponseListener {
@@ -66,7 +111,9 @@ class MainActivity : AppCompatActivity() {
 
 
                 withContext(Dispatchers.Main) {
-                    recView.adapter = recAdapter(itemArrayList)
+
+                    recAdapter = recAdapter(itemArrayList)
+                    recView.adapter = recAdapter
                 }
 
             }
