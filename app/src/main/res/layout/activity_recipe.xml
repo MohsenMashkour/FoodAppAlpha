@@ -32,16 +32,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_recipeActivity" />
 
-    <ImageView
-        android:id="@+id/img_recipeActivity"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_image"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_recipeActivity"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_recipeActivity">
+
+        <ImageView
+            android:id="@+id/img_recipeActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </androidx.cardview.widget.CardView>
+
 
     <View
         android:id="@+id/view_line"
@@ -52,7 +62,7 @@
         android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_recipeActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView_image" />
 
 
     <TextView
@@ -63,8 +73,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:maxLines="3"
-        android:textStyle="bold"
         android:text="@string/ingredients"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_line" />
@@ -92,6 +102,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/rv_detail_item" />
+
             <TextView
                 android:id="@+id/tv_recipe_banner"
                 android:layout_width="match_parent"
@@ -100,8 +111,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:maxLines="3"
-                android:textStyle="bold"
                 android:text="@string/recipe"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_line" />
