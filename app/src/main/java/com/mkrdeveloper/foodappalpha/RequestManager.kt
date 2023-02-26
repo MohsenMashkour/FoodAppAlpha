@@ -1,7 +1,9 @@
 package com.mkrdeveloper.foodappalpha
 
 import android.content.Context
+import com.mkrdeveloper.foodappalpha.listeners.DetailsRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
+import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -10,9 +12,10 @@ import kotlinx.coroutines.launch
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RequestManager(context: Context, tags : String) {
+class RequestManager(context: Context, tags: String, id : Int) {
 
 
+    val id = id
     val tags = tags
     val cont = context
     val api = Retrofit.Builder()
@@ -30,36 +33,38 @@ class RequestManager(context: Context, tags : String) {
 
 
             val response: Response<RandomRecipeApiResponse> =
-            api.getRandomRecipes(cont.getString(R.string.api_key), "100", tags )
-                .awaitResponse()
+                api.getRandomRecipes(cont.getString(R.string.api_key), "100", tags)
+                    .awaitResponse()
 
             if (!response.isSuccessful) {
                 listener.onError(response.message())
 
-            }else{
-            listener.onFetch(response.body(), response.message())
+            } else {
+                listener.onFetch(response.body(), response.message())
             }
 
 
-                /*api.enqueue(object : Callback<RandomRecipeApiResponse> {
-                override fun onResponse(
-                    call: Call<RandomRecipeApiResponse>,
-                    response: Response<RandomRecipeApiResponse>
-                ) {
-                    if (!response.isSuccessful) {
-                        listener.onError(response.message())
-                        return
-                    }
-                    listener.onFetch(response.body(), response.message())
-                }
+        }
+    }
 
-                override fun onFailure(call: Call<RandomRecipeApiResponse>, t: Throwable) {
-                    t.message?.let { listener.onError(it) }
-                }
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getDetailRecipes(listener: DetailsRecipeResponseListener) {
 
-            })
 
-                 */
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            val response: Response<DetailsOfRecipes> =
+                api.getDetailOfRecipes(id,cont.getString(R.string.api_key))
+                    .awaitResponse()
+
+            if (!response.isSuccessful) {
+                listener.onError(response.message())
+
+            } else {
+                listener.onFetch(response.body(), response.message())
+            }
+
 
         }
     }
@@ -67,13 +72,6 @@ class RequestManager(context: Context, tags : String) {
 
 
 
-/* private interface CallRandomRecipes {
-     @GET("recipes/random")
 
-     fun getRandomRecipes(@Query("apiKey") apiKey : String, @Query("number") number : String, @Query("tags") tags : String): Call<RandomRecipeApiResponse>
-
- }
-
- */
 
 

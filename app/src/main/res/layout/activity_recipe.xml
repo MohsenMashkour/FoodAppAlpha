@@ -56,14 +56,15 @@
 
 
     <TextView
-        android:id="@+id/tv_recipe_banner"
+        android:id="@+id/tv_ing_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:maxLines="3"
-        android:text="recipe:"
+        android:textStyle="bold"
+        android:text="@string/ingredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_line" />
@@ -74,16 +75,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recipe_banner">
+        app:layout_constraintTop_toBottomOf="@+id/tv_ing_banner">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingBottom="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/appbar_scrolling_view_behavior"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/rv_detail_item" />
+            <TextView
+                android:id="@+id/tv_recipe_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="3"
+                android:textStyle="bold"
+                android:text="@string/recipe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
             <TextView
                 android:id="@+id/tv_recipe_recipeActivity"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -91,6 +116,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:text="recipe:" />
+
 
         </LinearLayout>
 

@@ -59,40 +59,9 @@ class MainActivity : AppCompatActivity() {
         recAdapter = recAdapter(itemArrayList)
 
         searchView = findViewById(R.id.searchView)
+        searchView.clearFocus()
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-
-                if (query != null) {
-                    tags = query
-                }
-                RequestManager(applicationContext, tags).getRandomRecipes(listener)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-
-                val searchList = ArrayList<Recipes>()
-
-                if (newText != null){
-                    for (i in itemArrayList){
-                        if (i.title.lowercase(Locale.ROOT).contains(newText)){
-                            searchList.add(i)
-                        }
-                    }
-                    if (searchList.isEmpty()){
-                        Toast.makeText(this@MainActivity, "No data",Toast.LENGTH_SHORT).show()
-                    }else{
-
-                        recAdapter.onSearchApplied(searchList)
-                    }
-                }
-                return true
-            }
-
-        })
+        onSearchApplied()
 
 
         // getData()
@@ -118,11 +87,51 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-            override fun onError(msg: String) {
-                Toast.makeText(applicationContext, "error $msg", Toast.LENGTH_SHORT).show()
+            override suspend fun onError(msg: String) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(applicationContext, "error $msg", Toast.LENGTH_SHORT).show()
+                }
             }
+
+
         }
-        RequestManager(applicationContext, tags).getRandomRecipes(listener)
+        RequestManager(applicationContext, tags, 0).getRandomRecipes(listener)
+    }
+
+    private fun onSearchApplied() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+
+                if (query != null) {
+                    tags = query
+                }
+                RequestManager(applicationContext, tags, 0).getRandomRecipes(listener)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+
+                val searchList = ArrayList<Recipes>()
+
+                if (newText != null) {
+                    for (i in itemArrayList) {
+                        if (i.title.lowercase(Locale.ROOT).contains(newText)) {
+                            searchList.add(i)
+                        }
+                    }
+                    if (searchList.isEmpty()) {
+                        Toast.makeText(this@MainActivity, "No data", Toast.LENGTH_SHORT).show()
+                    } else {
+
+                        recAdapter.onSearchApplied(searchList)
+                    }
+                }
+                return true
+            }
+
+        })
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -191,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         tvLabel.text = tags
-        RequestManager(cont, tags).getRandomRecipes(listener)
+        RequestManager(cont, tags, 0).getRandomRecipes(listener)
 
 
         return super.onOptionsItemSelected(item)

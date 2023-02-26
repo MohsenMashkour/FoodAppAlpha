@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_900"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -15,7 +15,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:elevation="8dp"
-        app:cardBackgroundColor="@color/purple_200"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
-            android:backgroundTint="@android:color/transparent"
+            android:background="@drawable/search_bcd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
@@ -34,7 +34,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/main_course"
-            android:textColor="@color/yellow"
+            android:textColor="@color/gray"
             android:textSize="24sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:listitem="@layout/rec_item" />
+        tools:listitem="@layout/rec_item_new" />
 
     <TextView
         android:id="@+id/tvMain"

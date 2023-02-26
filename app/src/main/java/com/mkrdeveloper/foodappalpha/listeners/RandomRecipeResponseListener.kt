@@ -8,7 +8,7 @@ interface RandomRecipeResponseListener {
         suspend fun onFetch(response: RandomRecipeApiResponse?, message: String)
 
 
-        fun onError(msg: String)
+        suspend fun onError(msg: String)
 
 
 
