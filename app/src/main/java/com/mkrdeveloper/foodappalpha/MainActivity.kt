@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mkrdeveloper.foodappalpha.adapters.RvCatAdapter
 import com.mkrdeveloper.foodappalpha.adapters.recAdapter
+import com.mkrdeveloper.foodappalpha.listeners.CategoryListener
 import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
 import com.mkrdeveloper.foodappalpha.models.Recipes
@@ -47,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         recView.setHasFixedSize(true)
 
         itemArrayList = arrayListOf()
+        categorySet()
+
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -98,6 +102,44 @@ class MainActivity : AppCompatActivity() {
         RequestManager(applicationContext, tags, 0).getRandomRecipes(listener)
     }
 
+    private fun categorySet() {
+        val catList = arrayListOf(
+            "main course",
+            "side dish",
+            "appetizer",
+            "salad",
+            "bread",
+            "breakfast",
+            "soup",
+            "beverage",
+            "sauce",
+            "marinade",
+            "dessert",
+            "fingerfood",
+            "snack",
+            "drink"
+        )
+
+        val categoryListener = object : CategoryListener{
+            override fun categoryTag(tag: Int) {
+                tags = catList[tag]
+                Toast.makeText(this@MainActivity,catList[tag],Toast.LENGTH_SHORT).show()
+                RequestManager(applicationContext, catList[tag], 0).getRandomRecipes(listener)
+                tvLabel.text = tags
+            }
+        }
+
+        val rvCat = findViewById<RecyclerView>(R.id.rvCategory)
+        rvCat.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@MainActivity,1,RecyclerView.HORIZONTAL,false)
+            val adaptr = RvCatAdapter(categoryListener)
+            adapter = adaptr
+        }
+
+
+    }
+
     private fun onSearchApplied() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -134,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
+    /*@OptIn(DelicateCoroutinesApi::class)
     private fun getData() {
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -172,7 +214,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-    }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.categories_menu, menu)

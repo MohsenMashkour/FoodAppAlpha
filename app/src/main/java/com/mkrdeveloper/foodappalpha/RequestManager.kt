@@ -3,8 +3,10 @@ package com.mkrdeveloper.foodappalpha
 import android.content.Context
 import com.mkrdeveloper.foodappalpha.listeners.DetailsRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
+import com.mkrdeveloper.foodappalpha.listeners.SimilarRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
+import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesResponse
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -56,6 +58,28 @@ class RequestManager(context: Context, tags: String, id : Int) {
 
             val response: Response<DetailsOfRecipes> =
                 api.getDetailOfRecipes(id,cont.getString(R.string.api_key))
+                    .awaitResponse()
+
+            if (!response.isSuccessful) {
+                listener.onError(response.message())
+
+            } else {
+                listener.onFetch(response.body(), response.message())
+            }
+
+
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getSimilarRecipes(listener: SimilarRecipeResponseListener) {
+
+
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            val response: Response<SimilarRecipesResponse> =
+                api.getSimilarRecipes(id,"3",cont.getString(R.string.api_key))
                     .awaitResponse()
 
             if (!response.isSuccessful) {

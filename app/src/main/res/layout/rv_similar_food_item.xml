@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="130dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:elevation="8dp"
@@ -10,23 +10,24 @@
     app:layout_constraintDimensionRatio="1:2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/similarFoodContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
         android:paddingTop="12dp"
         android:paddingEnd="8dp"
-        android:paddingBottom="12dp">
+        android:paddingBottom="1dp">
 
 
         <TextView
-            android:id="@+id/tvIngName"
+            android:id="@+id/tvSimilarFoodName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="ingredient name"
+            android:text="food name"
             android:textAlignment="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,29 +35,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imgIngRecipe"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/tvIngName"
-            app:layout_constraintStart_toStartOf="@+id/tvIngName"
-            app:layout_constraintTop_toBottomOf="@+id/tvIngName"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        <TextView
-            android:id="@+id/tvIngAmount"
+            android:id="@+id/imgSimilarRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:text="ingredient amount"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/imgIngRecipe"
-            app:layout_constraintStart_toStartOf="@+id/imgIngRecipe"
-            app:layout_constraintTop_toBottomOf="@+id/imgIngRecipe" />
+            app:layout_constraintEnd_toEndOf="@+id/tvSimilarFoodName"
+            app:layout_constraintStart_toStartOf="@+id/tvSimilarFoodName"
+            app:layout_constraintTop_toBottomOf="@+id/tvSimilarFoodName"
+            android:src="@drawable/soup" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

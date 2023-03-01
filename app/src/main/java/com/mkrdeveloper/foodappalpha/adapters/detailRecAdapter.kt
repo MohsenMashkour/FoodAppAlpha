@@ -1,25 +1,20 @@
 package com.mkrdeveloper.foodappalpha.adapters
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.R
-import com.mkrdeveloper.foodappalpha.RecipeActivity
-import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.ExtendedIngredient
-import com.mkrdeveloper.foodappalpha.models.Recipes
 import com.squareup.picasso.Picasso
 
 class detailRecAdapter(private var ingredients : ArrayList<ExtendedIngredient>) : RecyclerView.Adapter<detailRecAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val imgIng: ImageView = itemView.findViewById(R.id.imgIng)
+        val imgIng: ImageView = itemView.findViewById(R.id.imgIngRecipe)
 
         val tvIngName: TextView = itemView.findViewById(R.id.tvIngName)
         val tvIngAmount: TextView = itemView.findViewById(R.id.tvIngAmount)
