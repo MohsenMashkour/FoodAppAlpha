@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.R
 import com.mkrdeveloper.foodappalpha.RecipeActivity
 import com.mkrdeveloper.foodappalpha.models.Recipes
+import com.mkrdeveloper.foodappalpha.models.Step
 import com.squareup.picasso.Picasso
 
-class recAdapter(private var recipes : ArrayList<Recipes>) : RecyclerView.Adapter<recAdapter.ViewHolder>() {
+class RvMainAdapter(private var recipes: ArrayList<Recipes>) : RecyclerView.Adapter<RvMainAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val imgItem: ImageView = itemView.findViewById(R.id.img_item)
@@ -50,15 +51,13 @@ class recAdapter(private var recipes : ArrayList<Recipes>) : RecyclerView.Adapte
         val currentItem = recipes[position]
 
 
+
         Picasso.get().load(currentItem.image).into(holder.imgItem)
         holder.tvName.text = currentItem.title
         holder.tv_time.text = "${currentItem.readyInMinutes} minutes"
         holder.tv_like.text = "${currentItem.aggregateLikes} likes"
         holder.tv_serving.text = "${currentItem.servings} servings"
-        holder.tv_resipe.text = currentItem.instructions
-        //Toast.makeText(holder.tvName.context, currentItem.image, Toast.LENGTH_SHORT).show()
-       // Log.d("adapterrrr", currentItem.title)
-
+       // holder.tv_resipe.text = currentItem.instructions
 
 
         holder.cl_item.setOnClickListener {

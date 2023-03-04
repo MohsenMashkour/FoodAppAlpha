@@ -11,7 +11,7 @@ import com.mkrdeveloper.foodappalpha.R
 import com.mkrdeveloper.foodappalpha.models.ExtendedIngredient
 import com.squareup.picasso.Picasso
 
-class detailRecAdapter(private var ingredients : ArrayList<ExtendedIngredient>) : RecyclerView.Adapter<detailRecAdapter.ViewHolder>() {
+class RvDetailAdapter(private var ingredients : ArrayList<ExtendedIngredient>) : RecyclerView.Adapter<RvDetailAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val imgIng: ImageView = itemView.findViewById(R.id.imgIngRecipe)

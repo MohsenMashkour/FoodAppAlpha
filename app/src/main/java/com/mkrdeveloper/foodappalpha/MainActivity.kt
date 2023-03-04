@@ -11,14 +11,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.adapters.RvCatAdapter
-import com.mkrdeveloper.foodappalpha.adapters.recAdapter
+import com.mkrdeveloper.foodappalpha.adapters.RvMainAdapter
 import com.mkrdeveloper.foodappalpha.listeners.CategoryListener
 import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
 import com.mkrdeveloper.foodappalpha.models.Recipes
 import kotlinx.coroutines.*
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -38,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvLabel: TextView
 
     private lateinit var searchView: SearchView
-    private lateinit var recAdapter: recAdapter
+    private lateinit var RvMainAdapter: RvMainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         tvLabel = findViewById(R.id.tv_label)
 
 
-        recAdapter = recAdapter(itemArrayList)
+       // RvMainAdapter = RvMainAdapter(itemArrayList)
 
         searchView = findViewById(R.id.searchView)
         searchView.clearFocus()
@@ -84,9 +82,13 @@ class MainActivity : AppCompatActivity() {
 
 
                 withContext(Dispatchers.Main) {
+                    RvMainAdapter = RvMainAdapter(itemArrayList)
+                    recView.adapter = RvMainAdapter
+                    /*if (response != null) {
+                        tvMain.text = response.recipes[0].analyzedInstructions[0].steps.toString()
+                    }*/
 
-                    recAdapter = recAdapter(itemArrayList)
-                    recView.adapter = recAdapter
+
                 }
 
             }
@@ -167,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "No data", Toast.LENGTH_SHORT).show()
                     } else {
 
-                        recAdapter.onSearchApplied(searchList)
+                        RvMainAdapter.onSearchApplied(searchList)
                     }
                 }
                 return true

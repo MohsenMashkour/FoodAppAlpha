@@ -6,13 +6,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mkrdeveloper.foodappalpha.adapters.SimilarRecAdapter
-import com.mkrdeveloper.foodappalpha.adapters.detailRecAdapter
+import com.mkrdeveloper.foodappalpha.adapters.RvDetailAdapter
 import com.mkrdeveloper.foodappalpha.listeners.DetailsRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.listeners.SimilarRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.ExtendedIngredient
+import com.mkrdeveloper.foodappalpha.models.Step
 import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesItem
 import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesResponse
 import com.squareup.picasso.Picasso
@@ -23,20 +25,22 @@ class RecipeActivity : AppCompatActivity() {
 
     private lateinit var listener: DetailsRecipeResponseListener
     private lateinit var similarlistener: SimilarRecipeResponseListener
-    private lateinit var recAdapter: detailRecAdapter
+    private lateinit var recAdapter: RvDetailAdapter
     private lateinit var similarRecAdapter: SimilarRecAdapter
     private lateinit var recView: RecyclerView
     private lateinit var rVSimilarRecipes: RecyclerView
+    private lateinit var rvSteps: RecyclerView
     private lateinit var itemArrayList: ArrayList<ExtendedIngredient>
     private lateinit var similarRecipesArrayList: ArrayList<SimilarRecipesItem>
+    private lateinit var stepsArrayList: ArrayList<Step>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
 
-        val tv_recipe = findViewById<TextView>(R.id.tv_recipe_recipeActivity)
-        val tv_name = findViewById<TextView>(R.id.tv_name_recipeActivity)
-        val img_recipeActivity = findViewById<ImageView>(R.id.img_recipeActivity)
+
+        val tvName = findViewById<TextView>(R.id.tv_name_recipeActivity)
+        val imgRecipeActivity = findViewById<ImageView>(R.id.img_recipeActivity)
 
         recView = findViewById(R.id.rvDetails)
         recView.layoutManager =
@@ -48,6 +52,11 @@ class RecipeActivity : AppCompatActivity() {
             GridLayoutManager(this@RecipeActivity, 1, RecyclerView.HORIZONTAL, false)
         rVSimilarRecipes.setHasFixedSize(true)
 
+        rvSteps = findViewById(R.id.rv_recipe_recipeActivity)
+        rvSteps.apply {
+            setHasFixedSize(true)
+            layoutManager= LinearLayoutManager(this@RecipeActivity)
+        }
 
         val intent = intent
         val instructions = intent.getStringExtra("instructions")
@@ -55,10 +64,11 @@ class RecipeActivity : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         val id = intent.getStringExtra("id")
 
-        tv_recipe.text = instructions
-        tv_name.text = title
 
-        Picasso.get().load(image).into(img_recipeActivity)
+
+        tvName.text = title
+
+        Picasso.get().load(image).into(imgRecipeActivity)
 
 
 
@@ -79,7 +89,7 @@ class RecipeActivity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         //tv_recipe.text = response.summary
-                        recAdapter = detailRecAdapter(itemArrayList)
+                        recAdapter = RvDetailAdapter(itemArrayList)
                         recView.adapter = recAdapter
                     }
                 }

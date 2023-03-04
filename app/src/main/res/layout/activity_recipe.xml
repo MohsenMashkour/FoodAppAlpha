@@ -120,8 +120,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
-            <TextView
-                android:id="@+id/tv_recipe_recipeActivity"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recipe_recipeActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"

@@ -12,8 +12,8 @@
         android:id="@+id/cl_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         android:background="@drawable/search_bcd"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -110,13 +110,13 @@
             </LinearLayout>
         </LinearLayout>
 
-
         <View
             android:id="@+id/view_line"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
             android:background="@color/purple_700"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_bottom" />
@@ -130,6 +130,7 @@
             android:layout_marginEnd="8dp"
             android:maxLines="3"
             android:text="recieps"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_line" />
@@ -144,9 +145,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_img"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/linear_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_bottom">
@@ -159,6 +159,13 @@
                 app:layout_constraintGuide_percent="0.53" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,14 +173,14 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/banner_layout"
-                app:layout_constraintDimensionRatio="2:1"
-                app:layout_constraintEnd_toEndOf="@+id/guideline"
-                app:layout_constraintStart_toEndOf="@+id/guideline"
+
+                app:layout_constraintEnd_toEndOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/guideline3">
 
                 <ImageView
@@ -181,6 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:elevation="2dp"
+                    app:layout_constraintDimensionRatio="2:1"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             </androidx.cardview.widget.CardView>
