@@ -10,8 +10,8 @@ import com.mkrdeveloper.foodappalpha.R
 import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesItem
 import com.squareup.picasso.Picasso
 
-class SimilarRecAdapter(private val similarRecipesArrayList: ArrayList<SimilarRecipesItem>) :
-    RecyclerView.Adapter<SimilarRecAdapter.ViewHolder>() {
+class RvSimilarAdapter(private val similarRecipesArrayList: ArrayList<SimilarRecipesItem>) :
+    RecyclerView.Adapter<RvSimilarAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

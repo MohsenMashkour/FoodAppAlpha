@@ -2,6 +2,8 @@ package com.mkrdeveloper.foodappalpha
 
 import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
+import com.mkrdeveloper.foodappalpha.models.recipesSteps.RecipesSteps
+import com.mkrdeveloper.foodappalpha.models.recipesSteps.RecipesStepsItem
 import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,9 +28,9 @@ interface CallRandomRecipes {
 
     fun getDetailOfRecipes(
         @Path("id") id: Int,
-        @Query("apiKey") apiKey: String,
+        @Query("apiKey") apiKey: String
 
-        ): Call<DetailsOfRecipes>
+    ): Call<DetailsOfRecipes>
 
 
     @GET("recipes/{id}/similar")
@@ -36,8 +38,15 @@ interface CallRandomRecipes {
     fun getSimilarRecipes(
         @Path("id") id: Int,
         @Query("number") number: String,
-        @Query("apiKey") apiKey: String,
+        @Query("apiKey") apiKey: String
 
-        ): Call<SimilarRecipesResponse>
+    ): Call<SimilarRecipesResponse>
+
+    @GET("recipes/{id}/analyzedInstructions")
+    fun getRecipeSteps(
+        @Path("id") id: Int,
+        @Query("apiKey") apiKey: String
+
+    ): Call<RecipesSteps>
 
 }

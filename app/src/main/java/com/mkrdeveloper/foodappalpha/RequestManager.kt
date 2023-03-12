@@ -3,9 +3,12 @@ package com.mkrdeveloper.foodappalpha
 import android.content.Context
 import com.mkrdeveloper.foodappalpha.listeners.DetailsRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.listeners.RandomRecipeResponseListener
+import com.mkrdeveloper.foodappalpha.listeners.RecipeStepsListener
 import com.mkrdeveloper.foodappalpha.listeners.SimilarRecipeResponseListener
 import com.mkrdeveloper.foodappalpha.models.DetailsOfRecipes
 import com.mkrdeveloper.foodappalpha.models.RandomRecipeApiResponse
+import com.mkrdeveloper.foodappalpha.models.recipesSteps.RecipesSteps
+import com.mkrdeveloper.foodappalpha.models.recipesSteps.RecipesStepsItem
 import com.mkrdeveloper.foodappalpha.models.similarRecipes.SimilarRecipesResponse
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -90,6 +93,20 @@ class RequestManager(context: Context, tags: String, id : Int) {
             }
 
 
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getRecipeSteps(listener: RecipeStepsListener){
+        GlobalScope.launch (Dispatchers.IO){
+            val response: Response<RecipesSteps> =
+            api.getRecipeSteps(id,cont.getString(R.string.api_key))
+                .awaitResponse()
+            if (!response.isSuccessful){
+                listener.onError(response.message())
+            }else{
+                listener.onFetch(response.body(),response.message())
+            }
         }
     }
 }

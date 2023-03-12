@@ -16,7 +16,7 @@
     <string name="snack">snack</string>
     <string name="drink">drink</string>
     <string name="recipe">Recipe:</string>
-    <string name="ingredients">ingredients:</string>
+    <string name="ingredients">Ingredients:</string>
 
     <string-array name="categories">
 
